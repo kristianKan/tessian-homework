@@ -1,12 +1,37 @@
 <template>
-  <div>
-    <input placeholder="Milestone" @input="setFilter">
-    <input placeholder="State" @input="setFilter">
-    <input placeholder="Assignee" @input="setFilter">
-    <input placeholder="Creator" @input="setFilter">
-    <input placeholder="Mentioned" @input="setFilter">
-    <input placeholder="Labels" @input="setFilter">
-    <button @click="click">Fetch</button>
+  <div class="md-layout-item md-size-25">
+    <md-card class="md-layout-item">
+      <md-card-header>
+        <div class="md-title">Filters</div>
+      </md-card-header>
+      <md-card-content>
+        <md-field>
+          <label for="Milestone">Milestone</label>
+          <md-input name="Milestone" @input="setFilter('Milestone')"></md-input>
+        </md-field>
+        <md-field>
+          <label for="State">State</label>
+          <md-input name="State" @input="setFilter('State')"></md-input>
+        </md-field>
+        <md-field>
+          <label for="Labels">Labels</label>
+          <md-input name="Labels" @input="setFilter('Labels')"></md-input>
+        </md-field>
+        <md-field>
+          <label for="Assignee">Assignee</label>
+          <md-input name="Assignee" @input="setFilter('Assignee')"></md-input>
+        </md-field>
+        <md-field>
+          <label for="Creator">Creator</label>
+          <md-input name="Creator" @input="setFilter('Creator')"></md-input>
+        </md-field>
+        <md-field>
+          <label for="Mentioned">Mentioned</label>
+          <md-input name="Mentioned" @input="setFilter('Mentioned')"></md-input>
+        </md-field>
+        <button class="md-button md-raised" @click="click">Apply</button>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -20,12 +45,14 @@ export default {
 
   methods: {
     click() {
+      /* eslint-disable no-debugger */
+      debugger
       this.$store.dispatch('getIssues', this.params)
     },
-    setFilter(e) {
-      this.$store.dispatch('set' + e.target.placeholder, e.target.value)
+    setFilter(type) {
+      if (event.type !== 'input') return
+      this.$store.dispatch('set' + type, event.target.value)
     }
   }
 }
 </script>
-
