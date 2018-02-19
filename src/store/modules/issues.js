@@ -10,8 +10,8 @@ const getters = {
 
 // actions
 const actions = {
-  getIssues({ commit, page, options }) {
-    github.getIssues(issues => commit('setIssues', issues), page, options)
+  getIssues({ commit }, params) {
+    github.getIssues(issues => commit('setIssues', issues), params)
   }
 }
 

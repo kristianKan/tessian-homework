@@ -1,8 +1,8 @@
 <template>
   <ul>
     <li v-for="issue in issues" :key="issue.id">
-      {{ issue.title }} - {{ issue.number }}
-      <br>
+      {{ issue.title }}
+      <a :href="issue.html_url" >#{{ issue.number }}</a>
     </li>
   </ul>
 </template>
@@ -12,11 +12,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: mapGetters({
-    issues: 'allIssues'
+    issues: 'allIssues',
+    params: 'params'
   }),
 
   created () {
-    this.$store.dispatch('getIssues', 1)
+    this.$store.dispatch('getIssues', this.params)
   }
 }
 </script>
