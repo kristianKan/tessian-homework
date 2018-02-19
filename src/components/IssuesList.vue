@@ -7,17 +7,55 @@
           <a :href="issue.html_url" >#{{ issue.number }}</a>
       </md-list-item>
     </md-list>
+	<pagination :records="issuesCount"
+      :per-page="pageSize"
+      @paginate="setPage">
+	</pagination>
   </div>
 </template>
 
+<style>
+.pagination {
+  list-style-type: none;
+  text-align: center;
+}
+
+.page-item {
+  float: left;
+}
+
+.page-item a {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.VuePagination__count {
+  visibility: hidden;
+}
+</style>
+
 <script>
 import { mapGetters } from 'vuex'
+import {Pagination} from 'vue-pagination-2'
 
 export default {
+  components: { Pagination },
+
   computed: mapGetters({
-    issues: 'allIssues',
-    params: 'params'
+    params: 'params',
+    issues: 'issues',
+    issuesCount: 'issuesCount',
+    pageSize: 'pageSize'
   }),
+
+  methods: {
+    setPage(page) {
+      this.$store.dispatch('setPage', page)
+      this.$store.dispatch('getIssues', this.params)
+    },
+  },
 
   created () {
     this.$store.dispatch('getIssues', this.params)

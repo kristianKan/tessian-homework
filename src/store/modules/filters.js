@@ -1,3 +1,9 @@
+/**
+ * This is a simple implementation of filters module where each filter is
+ * treated as a string. Filters are combined into a params object passed on to
+ * the api call. It is possible to improve the UX by preloading milestones,
+ * labels and assignees and have them display as selectors.
+ */
 const state = {
   labels: '',
   milestone: '',
@@ -22,6 +28,10 @@ const getters = {
 
 // actions
 const actions = {
+  setPage({ commit }, page) {
+    commit('setPage', page)
+  },
+
   setState({ commit }, state) {
     commit('setState', state)
   },
@@ -49,28 +59,32 @@ const actions = {
 
 // mutations
 const mutations = {
-  setState (state, _state) {
-    state.state = _state
+  setPage (state, newState) {
+    state.page = newState
   },
 
-  setMilestone (state, _state) {
-    state.milestone = _state
+  setState (state, newState) {
+    state.state = newState
   },
 
-  setLabels (state, _state) {
-    state.labels = _state
+  setMilestone (state, newState) {
+    state.milestone = newState
   },
 
-  setAssignee (state, _state) {
-    state.assignee = _state
+  setLabels (state, newState) {
+    state.labels = newState
   },
 
-  setCreator (state, _state) {
-    state.creator = _state
+  setAssignee (state, newState) {
+    state.assignee = newState
   },
 
-  setMentioned (state, _state) {
-    state.mentioned = _state
+  setCreator (state, newState) {
+    state.creator = newState
+  },
+
+  setMentioned (state, newState) {
+    state.mentioned = newState
   }
 }
 

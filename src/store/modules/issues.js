@@ -1,24 +1,35 @@
 import github from '../../api/github'
 
 const state = {
-  all: []
+  pageSize: 30,
+  pageCount: [],
+  issues: []
 }
 
 const getters = {
-  allIssues: state => state.all
+  issues: state => state.issues,
+  issuesCount: state => state.pageCount * state.pageSize
 }
 
 // actions
 const actions = {
   getIssues({ commit }, params) {
-    github.getIssues(issues => commit('setIssues', issues), params)
+    github.getIssues(
+      pageCount => commit('setPageCount', pageCount),
+      issues => commit('setIssues', issues),
+      params
+    )
   }
 }
 
 // mutations
 const mutations = {
-  setIssues(state, issues) {
-    state.all = issues
+  setIssues(state, newState) {
+    state.issues = newState
+  },
+
+  setPageCount(state, newState) {
+    state.pageCount = newState
   }
 }
 
